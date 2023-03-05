@@ -1,11 +1,13 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask_sqlalchemy import SQLAlchemy
+from flask_bcrypt import Bcrypt
 import random
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///text.db'
 app.config['SECRET_KEY'] = '63103453574bccae5541fa05'
 db = SQLAlchemy(app)
+bcrypt = Bcrypt(app)
 
 class User(db.Model):
     __tablename__ = 'user'
@@ -51,8 +53,10 @@ def register():
         
         tag = random.randint(0, 9999)
         combo = username + "#" + str(tag)
+
+        hashed_psw = bcrypt.generate_password_hash(psw).decode('utf-8')
             
-        user = User(email=email, username=username, password=psw, tag=tag, combo = combo)
+        user = User(email=email, username=username, password=hashed_psw, tag=tag, combo = combo)
         db.session.add(user)
         db.session.commit()
         session['username'] = username
@@ -95,8 +99,8 @@ def profile():
 def login():
     email = request.form.get("email")
     password = request.form.get('password')
-    user = User.query.filter_by(email=email, password=password).first()
-    if user:
+    user = User.query.filter_by(email=email).first()
+    if user and bcrypt.check_password_hash(user.password, password):
         username = user.username
         tag = user.tag
         combo = user.combo
