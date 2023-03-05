@@ -55,7 +55,10 @@ def register():
         user = User(email=email, username=username, password=psw, tag=tag, combo = combo)
         db.session.add(user)
         db.session.commit()
-
+        session['username'] = username
+        session['tag'] = tag
+        session['combo'] = combo
+        return redirect(url_for('profile'))
 
     return render_template('register.html')
 
