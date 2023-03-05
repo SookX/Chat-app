@@ -103,6 +103,12 @@ def login():
         return redirect(url_for('profile'))
     return render_template('login.html')
 
+@app.route('/sign-out')
+def sign_out():
+    session.pop("username", None)
+    session.pop("tag", None)
+    session.pop("combo", None)
+    return redirect('/')
 
 if __name__ == '__main__':
     app.run(debug=True, port=8000)
