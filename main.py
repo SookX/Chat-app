@@ -39,7 +39,7 @@ def register():
         email = request.form.get("email")
         username = request.form.get("username")
         psw = request.form.get("password")
-        psw_confirm = request.form.get("confirm-password")
+        psw_confirm = request.form.get("confirm_password")
         if User.query.filter_by(username=username).first():
             return render_template('register.html', message="Username already exists.")
         if User.query.filter_by(email=email).first():
