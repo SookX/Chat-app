@@ -32,27 +32,15 @@
       
     <div class="container border w-50 my-3 mt-lg-5 mb-lg-0 py-3"> <!--main-->
       
-      <form>
+      <form method="post">
         <div class="input-group">
-          <label class="form-label col-12 ms-1 mb-0">Add a friend:</label>
-            <input class="col-10 form-control rounded-start bg-light" id="search" type="search" placeholder="Username#0000" aria-label="Search">
+          <label class="form-label col-12 ms-1 mb-0" >Add a friend:</label>
+            <input class="col-10 form-control rounded-start bg-light" id="search" type="search" placeholder="Username#0000" aria-label="Search" name="friend">
             <button class="col-2 btn btn-dark" type="submit">Add Friend</button>
         </div>
       
       </form>
-
-      <div class="card my-2 bg-light shadow-sm">
-        <div class="card-body d-flex flex-column">
-          <a href="#" class="text-decoration-none">
-            <button class="btn btn-light rounded-0 border-top border-bottom d-flex align-items-center w-100 p-0">
-              <img src="../static/images/pfp.png" width="50">
-              Friend 1
-            </button>
-          </a>
-          
-        </div>
-      </div>
-
+      <h1>{{message}}</h1>
 
     
     </div>
