@@ -3,9 +3,6 @@
     <head>
       <meta charset="UTF-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <script src="path/to/particles.js"></script>
-      <script src="path/to/app.js"></script>
-      <script src="path/to/particles.json"></script>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
       <title>Chat App</title>
@@ -13,106 +10,50 @@
 
       <style>
         body{
-          background: black;
+          background-image: url('images/background-image.jpg');
+          background-repeat: no-repeat;
           background-size: cover;
-          
-        }
-        #particles-js {
-          width: 100%;
-          height: 90vh;
-          background: black;
-
-
-        }
-        .main {
-          position: absolute;
-          top: 50%;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          left: 50%;
-          transform: translate(-50%, -50%);
-        }
-        #a {
-          position: relative;
-          display: inline-block;
-          padding: 10px 20px;
-          color: #ffffff;
-          border: 1px solid white;
-          text-transform: uppercase;
-          letter-spacing: 4px;
-          text-decoration: none;
-          font-size: 24px;
-          overflow: hidden;
-          transition: 0.2s;
-        }
-
-        #a:hover {
-          color: #255784;
-          background: #ffffff;
-          box-shadow: 0 0 10px #ffffff, 0 0 40px #ffffff,0 0 80px #ffffff;
-        }
-
-        .element {
-          padding-top: 30px;
         }
       </style>
     </head>
     
     <body>
-
-      <div id="particles-js" >
-        <nav class="navbar navbar-expand-lg navbar-light bg-transparent"> 
-          <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-              <img src="images/logo.png" height="40px">
-              <span class="mx-1 link-light" >Chat App</span>
-            </a>
-              
-              
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-              
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-lg mb-3 p-1 sticky-top">
+          
+        <div class="container-fluid">
+          
+          <a class="navbar-brand" href="#">
+            <img src="images/logo.png" height="40px">
+            <span class="mx-1">Chat App</span>
+          </a>
             
-            <div class="collapse navbar-collapse" id="navbarNav">
-              
-              <ul class="navbar-nav ms-auto">
-                <li class="nav-item ">
-                  <a class="nav-link active link-light" aria-current="page" href="#">Home</a>
-                </li>
-                
-                <li class="nav-item">
-                  <a class="nav-link link-light" href="#">Contacts</a>
-                </li>
-                
-                <li class="nav-item">
-                  <a class="nav-link link-light" href="#">Log in</a>
-                </li>
-              </ul>
             
-            </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+            
+          
+          <div class="collapse navbar-collapse" id="navbarNav">
+            
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              </li>
+              
+              <li class="nav-item">
+                <a class="nav-link" href="#">Contacts</a>
+              </li>
+              
+              <li class="nav-item">
+                <a class="nav-link" href="#">Log in</a>
+              </li>
+            </ul>
+          
           </div>
-        </nav>
-        <div class="main">
-          <h1 class="display-4 element" align="center" style="color: #ffffff;">Welcome to our chat app! </h1>      
-          <br>
-          <h4 class="element" align="center" style="color: #ffffff;">Our platform allows you to connect with friends and family from all around the world, and stay connected wherever you are.</h4>    
-          <br>
-          <div class="element">
-            <a href="" id="a" align="center" class="element">
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-              Sign In
-            </a>
-          </div>
-
+        
         </div>
-      </div>
-      <script src="particles.js"></script>
-      <script src="app.js"></script>     
+      
+      </nav>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     </body>
 </html>
