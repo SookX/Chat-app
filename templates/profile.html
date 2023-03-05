@@ -11,7 +11,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom shadow-sm">
         
         <div class="container-fluid">
-          
+          <h3>{{username}}</h3>
           <a class="navbar-brand" href="#">
             <img src="../static/images/logo.png" height="40px">
 
@@ -36,12 +36,18 @@
         <div class="input-group">
           <label class="form-label col-12 ms-1 mb-0" >Add a friend:</label>
             <input class="col-10 form-control rounded-start bg-light" id="search" type="search" placeholder="Username#0000" aria-label="Search" name="friend">
-            <button class="col-2 btn btn-dark" type="submit">Add Friend</button>
+            <button class="col-2 btn btn-dark" type="submit" name="add">Add Friend</button>
         </div>
       
       </form>
-      <h1>{{message}}</h1>
+      {% for i in friends %}
+      <h1>{{i.combo2}}</h1>
+      {% endfor %}
 
+    
+
+    
+    
     
     </div>
     
