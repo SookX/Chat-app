@@ -15,14 +15,16 @@ class User(db.Model):
     password = db.Column(db.String(), nullable = False)
     tag = db.Column(db.Integer(), nullable = False)
     combo = db.Column(db.String(), nullable = False)
-    friendships = db.relationship('Friendship', foreign_keys='Friendship.user_id', backref='user', lazy=True)    
-
     
 
 class Friendship(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    friend_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    combo1 = db.Column(db.String,  nullable=False)
+    combo2 = db.Column(db.String, nullable = False)
+
+    def __init__(self, combo1, combo2):
+        self.combo1 = combo1
+        self.combo2 = combo2
 
 
 
@@ -60,13 +62,30 @@ def register():
 @app.route('/profile',  methods=['POST', 'GET'])
 def profile():
     message = ''
+    username = session.get('username')
+    add = request.form.get('add', False)
+    combo = session.get('combo')
     if request.method == 'POST':
-        friend_combo = request.form.get('friend')
-        if friend_combo:
-            friend = User.query.filter_by(combo=friend_combo).first()
-            if friend:
-                message = 'Added'
-    return render_template('profile.html', message=message)
+        if add != False:
+            friend_combo = request.form.get('friend')
+            if friend_combo:
+                friend = User.query.filter_by(combo=friend_combo).first()
+                if friend:
+                    existing_friendship = Friendship.query.filter(
+                    (Friendship.combo1 == combo) & (Friendship.combo2 == friend_combo)
+                    ).first()
+                    if existing_friendship:
+                        message = "Friendship already exists."
+                    else:
+                        new_friendship = Friendship(combo1=combo, combo2=friend_combo)
+                        db.session.add(new_friendship)
+                        db.session.commit()
+                        new_friendship = Friendship(combo2=combo, combo1=friend_combo)
+                        db.session.add(new_friendship)
+                        db.session.commit()
+    friends = Friendship.query.filter(Friendship.combo1 == combo)
+    return render_template('profile.html', combo=combo, friends = friends)
+
 
 
 @app.route('/login',  methods=['POST', 'GET'])
