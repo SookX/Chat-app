@@ -1,7 +1,8 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, session
+from flask import Flask, render_template, request, redirect, url_for, flash, session, make_response
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 import random
+import datetime
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///text.db'
@@ -28,7 +29,14 @@ class Friendship(db.Model):
         self.combo1 = combo1
         self.combo2 = combo2
 
-
+class Message(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    sender = db.Column(db.String, nullable=False)
+    receiver = db.Column(db.String, nullable = False)
+    text = db.Column(db.String(), nullable=False)
+    now = datetime.datetime.now()
+    date_string = now.strftime('%Y-%m-%d %H:%M:%S')
+    date = db.Column(db.String(), default=date_string)
 
 
 @app.route('/')
@@ -109,6 +117,26 @@ def login():
         session['combo'] = combo
         return redirect(url_for('profile'))
     return render_template('login.html')
+
+@app.route('/chat/<string:current_friend>', methods=['POST', 'GET'])
+def chat(current_friend):
+    combo = session.get('combo')
+    msg = request.form.get('message')
+    send = request.form.get('send', False)
+    if send != False:
+        if request.method == "POST":
+            message = Message(sender = combo, receiver = current_friend, text = msg)
+            db.session.add(message)
+            db.session.commit()
+            return redirect(request.url)
+    messages = Message.query.filter(
+        ((Message.sender == combo) & (Message.receiver == current_friend)) |
+        ((Message.sender == current_friend) & (Message.receiver == combo))
+    ).order_by(Message.date.asc()).all()
+
+
+    
+    return render_template('chat.html', current_friend=current_friend, combo=combo, messages=messages)
 
 @app.route('/sign-out')
 def sign_out():

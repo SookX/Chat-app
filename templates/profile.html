@@ -46,7 +46,7 @@
       <div class="card-body d-flex flex-column overflow-auto">
         {% for i in friends %}
         
-        <a href="#" class="text-decoration-none">
+        <a href="{{url_for('chat', current_friend = i.combo2)}}" class="text-decoration-none" name="{{i.combo2}}">
           <button class="btn rounded-0 border-top border-bottom d-flex align-items-center w-100 p-0">
             <img src="../static/images/pfp.png" width="50">
             {{i.combo2}}
