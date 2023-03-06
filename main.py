@@ -28,6 +28,7 @@ class Friendship(db.Model):
 
 
 @app.route('/')
+@app.route('/home')
 def home():
     return render_template('index.html')
 
@@ -69,19 +70,17 @@ def profile():
     return render_template('profile.html', message=message)
 
 
-@app.route('/login',  methods=['POST', 'GET'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    email = request.form.get("email")
-    password = request.form.get('password')
-    user = User.query.filter_by(email=email, password=password).first()
-    if user:
-        username = user.username
-        tag = user.tag
-        combo = user.combo
-        session['username'] = username
-        session['tag'] = tag
-        session['combo'] = combo
-        return redirect(url_for('profile'))
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+        user = User.query.filter_by(email=email, password=password).first()
+        if user:
+            session['user_id'] = user.id
+            return redirect(url_for('home'))
+        else:
+            flash('Invalid email or password')
     return render_template('login.html')
 
 

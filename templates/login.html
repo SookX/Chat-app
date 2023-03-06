@@ -22,13 +22,16 @@
                     
                     <div class="col-sm-8 py-5">
                             <img src="../static/images/user.png" width="150" class="mx-auto mt-3">
-
                             <div class="mb-3">
                                 <h1 class="mb-0">Welcome back!</h1>
-                                <div style="color: grey;">Enter your details to log into your account. If you don't have an account, please make one.</div>
-                            </div>
-                        
+                                <div style="color: grey;">Enter your details to log into your account. If you don't have an account <a href="/register" style="color: #007bff; text-decoration: none; font-weight: bold;">click here</a> to create one.</div>
+                              </div>
                             <div class="card-body">
+                                {% if error %}
+                                    <div class="alert alert-danger" role="alert">
+                                        {{ error }}
+                                    </div>
+                                {% endif %}
                                 <form class="w-50 mx-auto text-end" method="post">
                                     <div class="form-floating mb-3">
                                         <input type="text" id="email" name="email" placeholder="Email" class="form-control" name="email">
@@ -49,5 +52,6 @@
             </div>    
         </div>
         <br><br>
+
     </body>
 </html>
