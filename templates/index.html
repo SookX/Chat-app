@@ -50,6 +50,8 @@
         .element a:hover {
           color: black;
           background: #ffffff;
+          width: 100%;
+          height: 100%;
         }
       </style>
     </head>
@@ -78,7 +80,7 @@
               
               <ul class="navbar-nav ms-auto me-1 text-end">
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="url_for('home')">
+                  <a class="nav-link active" aria-current="page" href="{{url_for('home')}}">
                     <b>Home</b>
                   </a>
                 </li>

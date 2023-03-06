@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask_sqlalchemy import SQLAlchemy
 import random
+import bcrypt
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///text.db'
@@ -15,7 +16,17 @@ class User(db.Model):
     password = db.Column(db.String(), nullable = False)
     tag = db.Column(db.Integer(), nullable = False)
     combo = db.Column(db.String(), nullable = False)
-    
+
+    def set_password(self, password):
+        password = password.encode('utf-8')
+        salt = bcrypt.gensalt()
+        hashed_password = bcrypt.hashpw(password, salt).decode('utf-8')
+        self.password = hashed_password
+
+    def check_password(self, password):
+        password = password.encode('utf-8')
+        hashed_password = self.password.encode('utf-8')
+        return bcrypt.checkpw(password, hashed_password)
 
 class Friendship(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -26,35 +37,33 @@ class Friendship(db.Model):
         self.combo1 = combo1
         self.combo2 = combo2
 
-
-
-
 @app.route('/')
+@app.route('/home')
 def home():
     return render_template('index.html')
-
-
 
 @app.route('/register', methods=["POST", "GET"])
 def register():
     if request.method == "POST":
         email = request.form.get("email")
         username = request.form.get("username")
-        psw = request.form.get("password")
-        psw_confirm = request.form.get("confirm_password")
+        password = request.form.get("password")
+        confirm_password = request.form.get("confirm_password")
         if User.query.filter_by(username=username).first():
             return render_template('register.html', message="Username already exists.")
         if User.query.filter_by(email=email).first():
             return render_template('register.html', message="Another account is using this email.")
-        if psw != psw_confirm:
-            return render_template('register.html', message="The passwords does not match.")
+        if password != confirm_password:
+            return render_template('register.html', message="The passwords do not match.")
         
         tag = random.randint(0, 9999)
         combo = username + "#" + str(tag)
-            
-        user = User(email=email, username=username, password=psw, tag=tag, combo = combo)
+        
+        user = User(email=email, username=username, tag=tag, combo=combo)
+        user.set_password(password)
         db.session.add(user)
         db.session.commit()
+
         session['username'] = username
         session['tag'] = tag
         session['combo'] = combo
