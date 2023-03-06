@@ -37,10 +37,6 @@ class Friendship(db.Model):
         self.combo1 = combo1
         self.combo2 = combo2
 
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 @app.route('/')
 @app.route('/home')
 def home():
@@ -100,7 +96,7 @@ def profile():
                         db.session.add(new_friendship)
                         db.session.commit()
     friends = Friendship.query.filter(Friendship.combo1 == combo)
-    return render_template('profile.html', combo=combo, friends = friends, message=message)
+    return render_template('profile.html', combo=combo, friends = friends)
 
 
 
