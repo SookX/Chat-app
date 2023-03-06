@@ -63,7 +63,7 @@
           <div class="container-fluid">
             
             <a class="navbar-brand" href="#">
-              <img src="static/images/logo.png" height="40px">
+              <img src="../static/images/logo.png" height="40px">
 
               <span class="mx-1 link-light">Chat App</span>
             </a>
@@ -78,17 +78,18 @@
               
               <ul class="navbar-nav ms-auto me-1 text-end">
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="#">
-                    Home
+                  <a class="nav-link active" aria-current="page" href="url_for('home')">
+                    <b>Home</b>
                   </a>
                 </li>
                 
-                <li class="nav-item">
-                  <a class="nav-link link-light" href="#">Contacts</a>
-                </li>
                 
                 <li class="nav-item">
-                  <a class="nav-link link-light" href="login">Sign in</a>
+                  <a class="nav-link link-light" href="{{url_for('login')}}">Sign in</a>
+                </li>
+
+                <li class="nav-item">
+                  <a class="nav-link link-light" href="{{url_for('register')}}">Register</a>
                 </li>
               </ul>
             
@@ -105,7 +106,7 @@
           <h4 style="color: white;" class="element" align="center">Our platform allows you to connect with friends and family from all around the world, and stay connected wherever you are. </h2>
             
           <div class="element">
-              <a href="login">
+              <a href="{{url_for('login')}}">
                 Sign In
               </a>
           </div>
